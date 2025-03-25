@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch WhatsApp Data</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: #ffe6e6; /* Light pink background like the Sign Up page */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 600px; /* Match the width of the Sign Up container */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px; /* Consistent spacing between elements */
+        }
+        h2 {
+            margin: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin:20px;
+            font-size: 16px;
+            box-sizing: border-box; /* Ensure padding doesn’t affect width */
+        }
+        .fetch-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin:20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .fetch-btn:hover {
+            background-color: #f0f0f0;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 5px 10px;
+            color: #000;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+        .back-btn:hover {
+            color: #555;
+        }
+        .alert {
+            width: 100%;
+            padding: 10px;
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Fetch WhatsApp Messages</h2>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" class="input-field" id="chat_name" name="chat_name" placeholder="Chat Name" required>
+            <input type="number" class="input-field" id="num_messages" name="num_messages" placeholder="Number of Messages (e.g., 10)" min="1" required>
+            <button type="submit" class="fetch-btn">Fetch Messages</button>
+        </form>
+    </div>
+    <a href="{% url 'home' %}" class="back-btn">Back to Home</a>
+</body>
+</html>

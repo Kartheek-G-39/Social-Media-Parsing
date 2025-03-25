@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message Classification</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+            justify-content: center; /* Center vertically */
+            align-items: center; /* Center horizontally */
+            min-height: 100vh; /* Ensure body takes full viewport height */
+            background-color: #f8f9fa;
+            margin: 0; /* Remove default margin */
+        }
+        .container {
+            background: white;
+            padding: 30px; /* Reduced padding for a more compact look */
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 600px;
+            display: flex;
+            flex-direction: column; /* Stack elements vertically inside container */
+            align-items: center; /* Center elements horizontally */
+            gap: 15px; /* Equal spacing between elements */
+        }
+        .input-box {
+            width: 60%;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .classify-btn, .back-btn {
+            padding: 10px 50px;
+            font-size: 18px;
+            color: white;
+            background-color: #DD6368;
+            border: none;
+            margin:20px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s; /* Smooth hover effect */
+        }
+        .classify-btn:hover, .back-btn:hover {
+            background-color: #c9302c;
+        }
+        .result {
+            font-size: 25px;
+            font-weight: bold;
+        }
+        h2 {
+            margin: 0; /* Remove default margin for h2 */
+            font-size: 24px;
+        }
+        h1 {
+            margin: 0; /* Remove default margin for h1 */
+            font-size: 20px;
+        }
+        .button-container {
+            margin-top: 35px; /* Equal spacing below the container */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Message Classification</h2>
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="message" class="input-box" placeholder="Paste Message Here" required>
+            <button type="submit" class="classify-btn">Classify</button>
+        </form>
+        
+        {% if result %}
+        <h1>Result</h1>
+        <p class="result" style="color: {{ color }};">{{ result }}</p>
+        {% endif %}
+    </div>
+    <div class="button-container">
+        <a href="{% url 'home' %}" class="back-btn">Back</a>
+    </div>
+</body>
+</html>

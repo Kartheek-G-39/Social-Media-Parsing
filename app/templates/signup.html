@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            /* Light pink background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        .signup-container {
+            background-color: #ffecec;
+            /* Slightly darker pink box */
+            padding: 30px;
+            margin: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+        }
+        
+        h2 {
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+        
+        button {
+            padding: 10px;
+            background-color: white;
+            color: black;
+            border: none;
+            border-radius: 10px black;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        button:hover {
+            background-color: #DD6368;
+        }
+        
+        .already-registered {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        
+        .already-registered a {
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .toggle-password {
+            position: relative;
+        }
+        
+        .toggle-password input {
+            width: calc(100% - 30px);
+        }
+        
+        .toggle-password span {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="email" name="email" placeholder="Email id" required>
+            <div class="toggle-password">
+                <input type="password" name="password1" id="password1" placeholder="Password" required>
+                <span onclick="togglePassword('password1')">👁️</span>
+            </div>
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    const passwordInput = document.getElementById("password1");
+                    const requirements = {
+                        length: document.getElementById("req-length"),
+                        lowercase: document.getElementById("req-lowercase"),
+                        uppercase: document.getElementById("req-uppercase"),
+                        digit: document.getElementById("req-digit"),
+                        special: document.getElementById("req-special")
+                    };
+
+                    passwordInput.addEventListener("input", function() {
+                        const value = passwordInput.value;
+
+                        requirements.length.style.textDecoration = value.length >= 8 ? "line-through" : "none";
+                        requirements.lowercase.style.textDecoration = /[a-z]/.test(value) ? "line-through" : "none";
+                        requirements.uppercase.style.textDecoration = /[A-Z]/.test(value) ? "line-through" : "none";
+                        requirements.digit.style.textDecoration = /\d/.test(value) ? "line-through" : "none";
+                        requirements.special.style.textDecoration = /[!@#$%^&*(),.?":{}|<>]/.test(value) ? "line-through" : "none";
+                    });
+                });
+            </script>
+            <div>
+                <ul>
+                    <li id="req-length">At least 8 characters</li>
+                    <li id="req-lowercase">At least one lowercase letter</li>
+                    <li id="req-uppercase">At least one uppercase letter</li>
+                    <li id="req-digit">At least one digit</li>
+                    <li id="req-special">At least one special character</li>
+                </ul>
+            </div>
+            <div class="toggle-password">
+                <input type="password" name="password2" id="password2" placeholder="Confirm password" required>
+                <span onclick="togglePassword('password2')">👁️</span>
+            </div>
+            <button type="submit">Create Account</button>
+        </form>
+        <div class="already-registered">
+            Already registered? <a href="{% url 'login' %}">Login</a>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            if (field.type === "password") {
+                field.type = "text";
+            } else {
+                field.type = "password";
+            }
+        }
+    </script>
+</body>
+
+</html>

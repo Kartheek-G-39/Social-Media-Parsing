@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Fetch Result</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">{{ platform }} Data Fetched Successfully</h2>
+        <div class="text-center mt-4">
+            <a href="{{ pdf_url }}" class="btn btn-success" download>Download PDF</a>
+            <a href="{% url 'history' %}" class="btn btn-primary">View History</a>
+            <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

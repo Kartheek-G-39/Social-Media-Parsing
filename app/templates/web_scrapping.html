@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Scraping Platform</title>
+    <style>
+    /* General Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+    background: #ffffff;
+    padding: 30px 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    width: 500px;
+}
+
+h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.icons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.icons a {
+    text-decoration: none;
+}
+
+.icons img {
+    width: 50px;
+    height: 50px;
+    transition: transform 0.3s ease;
+}
+
+.icons img:hover {
+    transform: scale(1.1);
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Web Scraping</h1>
+        <p>Select a social media platform for scraping:</p>
+        <div class="icons">
+            <a href="{% url 'fetch_whatsapp_data' %}">
+                <img src="{% static 'icons/whatsapp.png' %}" alt="WhatsApp">
+            </a>
+            <a href="{% url 'fetch_instagram_data' %}">
+                <img src="{% static 'icons/instagram.jpeg' %}" alt="Instagram">
+            </a>
+            
+        </div>
+        <a href="{% url 'home' %}" class="btn btn-secondary mt-3">Back</a>
+    </div>
+</body>
+</html>

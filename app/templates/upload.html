@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>PDF Upload and Extraction</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background: white;
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 600px;
+            height:500px;
+            margin-top:40px;
+        }
+        .btn-custom {
+             padding: 10px 50px;
+            padding-top:15px;
+            font-size: 18px;
+            color: white;
+            background-color: #DD6368;
+            border: none;
+            font-weight:bold;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top:20px;
+        }
+        .btn-custom:hover {
+            background-color: #c9302c;
+        }
+        .result-box {
+            background: #f1f1f1;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 15px;
+            text-align: left;
+        }
+         .mb-3 {
+            margin-top: 40px;
+            border-radius: 5px solid;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3><strong>PDF Upload and Information Extraction</strong></h3>
+        <form action="{% url 'upload_pdf' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <input type="file" class="form-control" name="pdf_file" required>
+            </div>
+            <button type="submit" class="btn btn-custom">Submit</button>
+        </form>
+        
+        {% if classifications %}
+        <h5 class="mt-4">Result:</h5>
+        <div class="result-box">
+            {% for text, label in classifications %}
+                <p><strong>{{ label }}:</strong> {{ text }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if filtered_pdf %}
+        <a href="{% url 'download_pdf' %}?file={{ filtered_pdf }}" class="btn btn-custom mt-3">Download PDF</a>
+        {% endif %}
+
+        <a href="{% url 'home' %}" class="btn btn-secondary mt-3">Back</a>
+    </div>
+</body>
+</html>

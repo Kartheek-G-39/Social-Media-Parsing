@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>PDF Analysis Result</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Hate Speech & Offensive Content Detection</h2>
+        <table class="table table-bordered mt-4">
+            <thead>
+                <tr>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for text, label in classifications %}
+                <tr>
+                    <td>{{ text }}</td>
+                    <td>
+                        {% if label == "Hate Speech" %}
+                            <span class="badge bg-danger">{{ label }}</span>
+                        {% elif label == "Offensive" %}
+                            <span class="badge bg-warning">{{ label }}</span>
+                        {% else %}
+                            <span class="badge bg-success">{{ label }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if filtered_pdf %}
+        <div class="text-center mt-4">
+            <a href="{% url 'download_pdf' %}?file={{ filtered_pdf }}" class="btn btn-success">
+                Download Filtered PDF
+            </a>
+        </div>
+        {% else %}
+        <p class="text-center text-muted">No offensive content detected.</p>
+        {% endif %}
+
+        <div class="text-center mt-3">
+            <a href="{% url 'upload_pdf' %}" class="btn btn-secondary">Upload Another</a>
+        </div>
+    </div>
+</body>
+</html>
